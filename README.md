@@ -1,4 +1,4 @@
-# Analiza podatkov s programom R, 2020/21
+# Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 
@@ -6,9 +6,12 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 * [![RStudio](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/TrafelaT18/APPR-2020-21/master?urlpath=rstudio) RStudio
 
 ## Tematika
+Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji. Prikazala bom, kako so se količine kmetijskih pridelkov spreminjale v časovnem obdobju od leta 2010 do 2019, količino posameznega pridelka v Sloveniji ter količina kmetijskih pridelkov po regijah. Prav tako bom prikazala število in vrsto živine po regijah. Podatke bom iskala na Statističnem uradu Republike Slovenije.
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1502410S.px/table/tableViewLayout2/
+https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1573804S.px/table/tableViewLayout2/
+
+Ti podatki so na volju v csv obliki.
 
 ## Program
 
