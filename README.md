@@ -12,6 +12,19 @@ https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1502410S.px/table/tableViewLayo
 https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1573804S.px/table/tableViewLayout2/
 
 Ti podatki so na volju v csv obliki.
+Podatke bom imela v dveh razpredelnicah v obliki *tidy data*
+
+1. `kmetijska.kultura` - podatki o kmetijskih kulturah 
+  - `leto` - spremenljivka: količina kmetijske kulture v določenem letu,
+  - `regija` - spremenljivka: število kmetijske kulture v določeni regiji
+  - `kolicina` - meritev: povprečna količina pridelanega pridelka v t/ha
+  
+2. `vrsta.zivine` - podatki o živini
+  - `leto` - spremenljivka: število glav živine v določenem letu,
+  - `regija` - spremenljivka: število glav živine v določeni regiji,
+  - `stevilo` - meritev: stevilo  glav živine
+  
+ 
 
 ## Program
 
