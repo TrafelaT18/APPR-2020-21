@@ -31,3 +31,19 @@ uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Window
                 na = c('N', 'z')) %>% rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',
                 leto = 'LETO', stevilo.zivali = 'Število živali') %>%
                 filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA')
+
+#kolko je bilo zivine v teh letih v povprecju po regijah
+povprecje.zivine.regije <- uvoz.zivina %>% group_by(vrsta.zivine, regija) %>% 
+  summarise(povprecje = mean(stevilo.zivali, na.rm = TRUE))
+
+#kolko je povprečno zivine v Sloveniji v teh letih
+povprecje.zivine.slovenija <- povprecje.zivine.regije %>% group_by(vrsta.zivine) %>% 
+  summarise(povprecje = mean(povprecje, na.rm = TRUE))
+
+#koliko je v posamezne letu zivine povprečno
+povprecje.zivine.leta <- uvoz.zivina %>% group_by(vrsta.zivine, leto) %>% 
+  summarise(povprecje = mean(stevilo.zivali, na.rm = TRUE))
+
+#kje je najvec zivine kozi leta
+najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>% 
+  summarise(povprecje = mean(povprecje, na.rm = TRUE))
