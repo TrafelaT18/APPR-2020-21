@@ -26,3 +26,8 @@ povprecje.pridelkov.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) 
 najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>% 
   summarise(povprecje = mean(povprecje, na.rm = TRUE))
 
+
+uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
+                na = c('N', 'z')) %>% rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',
+                leto = 'LETO', stevilo.zivali = 'Število živali') %>%
+                filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA')
