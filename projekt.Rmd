@@ -22,9 +22,9 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Izbira teme
+# Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji. Prikazala bom, kako so se količine kmetijskih pridelkov spreminjale v časovnem obdobju od leta 2010 do 2019, količino posameznega pridelka v Sloveniji ter količina kmetijskih pridelkov po regijah. Prav tako bom prikazala število in vrsto živine po regijah. Podatke bom iskala na Statističnem uradu Republike Slovenije.
 
 ![](slike/grb.png)
 
@@ -38,6 +38,21 @@ source("uvoz/uvoz.r", encoding="UTF-8")
 
 Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
 z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+
+1. `kmetijska.kultura` - podatki o kmetijskih kulturah
+  - `leto` - spremenljivka: leto od 2010 do 2019 (tip podatkov: 
+                celo število)
+  - `regija` - spremenljivka: slovenska regija (tip: niz)
+  - `kolicina` - meritev: povprečna količina pridelanega  
+        pridelka v t/ha v ustreznem letu in ustrezni regiji
+          (tip:realno število)
+  
+2. `vrsta.zivine` - podatki o živini
+  - `leto` - spremenljivka: leta  2003, 2005, 2007, 2009,
+        2011,2013,2015,2017,2019  (tip podatkov: celo število)
+  - `regija` - spremenljivka: slovenska regija (tip: niz)
+  - `stevilo` - meritev: stevilo  glav živine v danem letu in
+        dani regiji   (tip: realno število)
 
 1. `druzine` - podatki o družinah za vsako občino
   - `obcina` - spremenljivka: ime občine (neurejen faktor),
