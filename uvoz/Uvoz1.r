@@ -55,3 +55,9 @@ povprecje.zivine.leta <- uvoz.zivina %>% group_by(vrsta.zivine, leto) %>%
 #kje je najvec zivine skozi leta
 najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>% 
   summarise(povprecje = mean(povprecje, na.rm = TRUE))
+
+
+
+
+pridelki <- uvoz.pridelki
+zivina <- uvoz.zivina
