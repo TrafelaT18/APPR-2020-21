@@ -10,10 +10,13 @@ library(rgeos)
 library(rgdal)
 
 library(tibble)
-uvoz.pridelki <- read_csv("podatki/povprecni_pridelek.csv", locale = locale(encoding = 'Windows-1250'),
-                          na = '-') %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE", leto = 'LETO',
-                        regija = 'STATISTIČNA REGIJA', kolicina = 4) %>% arrange(kmetijska.kultura) %>% arrange(leto)
+uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Windows-1250'),
+                     na = '-') %>% pivot_longer(-1, names_to = 'leto.regija', 
+                            values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
+                              sep="(?<=[0-9]) ") %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE") %>% 
+  arrange(kmetijska.kultura) %>% arrange(leto)
 uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
+
 #kolko je posamezne kmetijske kulture bilo v posamezni regiji v povprečju skozi leta
 povprecja.pridelkov.regije <- uvoz.pridelki %>% group_by(kmetijska.kultura, regija) %>%
   summarise(povprecje =  mean(kolicina, na.rm = TRUE))
@@ -29,11 +32,13 @@ najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>%
 
 
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
-                na = c('N', 'z')) %>% rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',
-                leto = 'LETO', stevilo.zivali = 'Število živali') %>%
-                filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA') %>% arrange(vrsta.zivine) %>% arrange(leto)
+                na = c('N', 'z')) %>% pivot_longer(-(1:2), names_to = 'leto_stevilo.zivali', values_to = 'kolicina') %>%
+  separate(leto_stevilo.zivali, into=c('leto', 'stevilo.zivali'), sep = "(?<=[0-9]) ") %>% select(-stevilo.zivali) %>%
+    rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',stevilo.zivali = 'kolicina') %>%
+   filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA') %>% arrange(vrsta.zivine) %>% arrange(leto)
 uvoz.zivina <- uvoz.zivina[c(1, 3, 2, 4)]
 uvoz.zivina$leto <- as.integer(uvoz.zivina$leto)
+
 
 #kolko je bilo zivine v teh letih v povprecju po regijah
 povprecje.zivine.regije <- uvoz.zivina %>% group_by(vrsta.zivine, regija) %>% 
