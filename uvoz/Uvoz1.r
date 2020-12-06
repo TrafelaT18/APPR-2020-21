@@ -20,15 +20,34 @@ uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
 #kolko je posamezne kmetijske kulture bilo v posamezni regiji v povprečju skozi leta
 povprecja.pridelkov.regije <- uvoz.pridelki %>% group_by(kmetijska.kultura, regija) %>%
   summarise(povprecje =  mean(kolicina, na.rm = TRUE))
+#graf za najbolj pogostih po regijah
+graf.pridelki.regije <- povprecja.pridelkov.regije %>% ggplot(aes(x = regija, y = povprecje)) +
+  geom_point() + facet_wrap(~kmetijska.kultura, ncol = 6) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+graf.pridelki.regije
+
 #kolko je povprečno pridelka v Sloveniji v 10 letih
 povprecje.pridelkov.slovenija <- povprecja.pridelkov.regije %>% group_by(kmetijska.kultura) %>% 
-  summarise(povprecje = mean(povprecje, na.rm = TRUE))
+  summarise(povprecje = mean(povprecje, na.rm = TRUE)) %>% arrange(povprecje)
+#diagram
+graf.povprecje.pridelkov.slovenija <- ggplot(aes(x = kmetijska.kultura, y = povprecje, group=1), 
+         data = povprecje.pridelkov.slovenija) + geom_col() + coord_flip() + 
+  ggtitle("Povprečje kmetijskih kultur") 
+graf.povprecje.pridelkov.slovenija
+
+
 #koliko v posemaznem letu povprečno v SLO
 povprecje.pridelkov.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>% 
   summarise(povprecje = mean(kolicina, na.rm = TRUE))
+#graf kako skozi leta spreminjala količina pridelkov v sloveniji
+graf.pridelki.leta <- povprecje.pridelkov.leta %>% ggplot(aes(x = leto, y = povprecje)) +
+  geom_step() + facet_wrap(~kmetijska.kultura, ncol = 6) + scale_x_continuous(breaks = seq(2010, 2019, 1)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+graf.pridelki.leta
+
 #kje je največ pridelanih pridelkov skozi leta
 najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>% 
   summarise(povprecje = mean(povprecje, na.rm = TRUE))
+
 
 
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
