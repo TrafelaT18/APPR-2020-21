@@ -1,15 +1,4 @@
-library(dplyr)
-library(tidyr)
-library(readr)
-library(tibble)
-library(ggplot2)
-library(tibble)
-library(tmap)
-library(maptools)
-library(rgeos)
-library(rgdal)
 
-library(tibble)
 uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Windows-1250'),
                      na = '-') %>% pivot_longer(-1, names_to = 'leto.regija', 
                             values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
@@ -36,9 +25,10 @@ graf.povprecje.pridelkov.slovenija
 
 
 #koliko v posemaznem letu povprečno v SLO
-povprecje.pridelkov.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>% 
+povprecje.pridelkov.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>%
   summarise(povprecje = mean(kolicina, na.rm = TRUE))
 #graf kako skozi leta spreminjala količina pridelkov v sloveniji
+
 graf.pridelki.leta <- povprecje.pridelkov.leta %>% ggplot(aes(x = leto, y = povprecje)) +
   geom_step() + facet_wrap(~kmetijska.kultura, ncol = 6) + scale_x_continuous(breaks = seq(2010, 2019, 1)) +
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
@@ -94,3 +84,7 @@ najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>%
 
 pridelki <- uvoz.pridelki
 zivina <- uvoz.zivina
+
+#preimenovanje regij tako kot v zemljevidu
+
+

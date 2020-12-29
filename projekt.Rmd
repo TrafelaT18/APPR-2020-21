@@ -33,11 +33,11 @@ Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in šte
 # Obdelava, uvoz in čiščenje podatkov
 
 ```{r uvoz}
-source("uvoz/uvoz.r", encoding="UTF-8")
+source("uvoz/Uvoz1.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Uvozila sem podatke o količini kmetijskih pridelkoh po regijah v obliki CSV s statističnega urada.
+Podatke imam v dveh razpredelnicah v obliki *tidy data*.
 
 1. `kmetijska.kultura` - podatki o kmetijskih kulturah
   - `leto` - spremenljivka: leto od 2010 do 2019 (tip podatkov: 
@@ -70,9 +70,14 @@ z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
   - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
   - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+**Opomba**:  da je 1. razpredelnica res v obliki *tidy data*, sem morala podati znak, ki označuje manjkajoče podatke("-"), imena regij in leta sem spravila v stolpec in nato preimenovala naslove stolpcev, ki so bili sestavljeni iz več besed. Leta sem pretvorila v cela števila.
+v 2. razpredelnici sem podala znak, ki označuje manjkajoče podatke ('N', 'Z')
+
+
+da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
 
 Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+
 
 ```{r histogram, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
 ggplot(obcine, aes(x=naselja)) + geom_histogram() +
@@ -89,10 +94,17 @@ source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 
 Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
-```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-tm_shape(merge(zemljevid, povprecja, by.x="OB_UIME", by.y="obcina")) +
+```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečne razširjenosti kmetijskih izdelkov po regijah'}
+tm_shape(merge(zemljevid, najvec.pridelkov.regije, by.x="NAME_1", by.y="regija")) +
   tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečno število otrok v družini")
+  tm_layout(title="Povprečna razširjenost kmetijskih izdelkov po regijah")
+```
+
+```{r zemljevid, fig.align='center', fig.cap='Zemljevid povprečne razširjenosti živinorejskih izdelkov po regijah'}
+tm_shape(merge(zemljevid, najvec.zivine.regije, by.x="NAME_1", by.y="regija" )) +     tm_polygons("povprecje",title="Povprečje") +
+   tm_layout(title="Povprečna razširjenost živinorejskih pridelkov")
+
+
 ```
 
 ***
