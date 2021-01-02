@@ -1,9 +1,9 @@
 
-uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Windows-1250'),
-                     na = '-') %>% pivot_longer(-1, names_to = 'leto.regija', 
+uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Windows-1250'),na = '-') %>% 
+                            pivot_longer(-1, names_to = 'leto.regija', 
                             values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
                               sep="(?<=[0-9]) ") %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE") %>% 
-  arrange(kmetijska.kultura) %>% arrange(leto)
+                          arrange(kmetijska.kultura) %>% arrange(leto)
 uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
 
 #kolko je posamezne kmetijske kulture bilo v posamezni regiji v povprečju skozi leta
