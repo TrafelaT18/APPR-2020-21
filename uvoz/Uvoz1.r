@@ -38,6 +38,10 @@ graf.pridelki.leta
 najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>% 
   summarise(povprecje = mean(povprecje, na.rm = TRUE))
 
+#pridelki v slo skozi leta
+pridelki.leta <- povprecje.pridelkov.leta %>% group_by(leto) %>% 
+  summarise(povprecje=mean(povprecje, na.rm=TRUE))
+
 
 
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
@@ -85,6 +89,6 @@ najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>%
 pridelki <- uvoz.pridelki
 zivina <- uvoz.zivina
 
-#preimenovanje regij tako kot v zemljevidu
+
 
 
