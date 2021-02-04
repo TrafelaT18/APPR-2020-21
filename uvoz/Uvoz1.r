@@ -3,12 +3,14 @@ uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Wi
                             pivot_longer(-1, names_to = 'leto.regija', 
                             values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
                               sep="(?<=[0-9]) ") %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE") %>% 
-                          arrange(kmetijska.kultura) %>% arrange(leto)
+                          arrange(kmetijska.kultura) %>% arrange(leto) 
 uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
+
 
 #kolko je posamezne kmetijske kulture bilo v posamezni regiji v povprečju skozi leta
 povprecja.pridelkov.regije <- uvoz.pridelki %>% group_by(kmetijska.kultura, regija) %>%
-  summarise(povprecje =  mean(kolicina, na.rm = TRUE))
+  summarise(povprecje =  mean(kolicina, na.rm = TRUE)) 
+
 #graf za najbolj pogostih po regijah
 graf.pridelki.regije <- povprecja.pridelkov.regije %>% ggplot(aes(x = regija, y = povprecje)) +
   geom_point() + facet_wrap(~kmetijska.kultura, ncol = 6) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
@@ -57,6 +59,7 @@ uvoz.zivina$leto <- as.integer(uvoz.zivina$leto)
 #kolko je bilo zivine v teh letih v povprecju po regijah
 povprecje.zivine.regije <- uvoz.zivina %>% group_by(vrsta.zivine, regija) %>% 
   summarise(povprecje = mean(stevilo.zivali, na.rm = TRUE))
+povprecje.zivine.regije$povprecje <- round(povprecje.zivine.regije$povprecje, 2)
 #graf za najbolj pogostih po regijah
 graf.zivina.regije <- povprecje.zivine.regije %>% ggplot(aes(x = regija, y = povprecje)) +
   geom_point() + facet_wrap(~vrsta.zivine, ncol = 6) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
