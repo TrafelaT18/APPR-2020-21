@@ -16,4 +16,4 @@
 g <- ggplot(pridelki.leta, aes(x=leto, y=povprecje)) + geom_point()
 lin <- lm(data = pridelki.leta, povprecje ~ leto)
 graf = g + geom_smooth(method='lm', formula = y~x) 
-predict(lin, data.frame(leto=seq(2010, 2025, 1)))
+napoved <- predict(lin, data.frame(leto=seq(2010, 2025, 1)))

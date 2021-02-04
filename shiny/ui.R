@@ -1,17 +1,21 @@
+
+
 library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Slovenske občine"),
+  titlePanel("Kmetijstvo in živinoreja"),
   
   tabsetPanel(
-      tabPanel("Velikost družine",
-               DT::dataTableOutput("druzine")),
-      
-      tabPanel("Število naselij",
-               sidebarPanel(
-                  uiOutput("pokrajine")
-                ),
-               mainPanel(plotOutput("naselja")))
-    )
+    tabPanel("Povprečje kmetijskih pridelkov po regijah",
+             DT::dataTableOutput("pridelki")),
+    
+    tabPanel("Posamezen izdelek skozi leta",
+             sidebarPanel(
+               selectInput(inputId = "pridelek",
+                           label = "Izberi kmetijski pridelek",
+                           choices = unique(uvoz.pridelki$kmetijska.kultura))),
+             mainPanel(plotOutput("pridelek")))
+  )
 ))
+
