@@ -64,15 +64,12 @@ v 2. razpredelnici sem podala znak, ki označuje manjkajoče podatke ('N', 'Z'),
 Spodnja grafa prikazujeta povprečje kmetijskih kultur (v t/ha) in živine (v številu glav) skozi leta in po regijah, torej prikaže, katera kultura in katera vrsta živine je v povprečju najpogostejša v Sloveniji skozi vsa ta leta. 
 
 
-```{r histogram1, fig.align='center', fig.cap='Histogram kmetijskih kultur v Sloveniji'}
- ggplot(aes(x = kmetijska.kultura, y = povprecje, group=1), 
-         data = povprecje.pridelkov.slovenija) + geom_col() + coord_flip() + 
-  ggtitle("Povprečje kmetijskih kultur") 
+```{r graf1, fig.align='center',echo = FALSE, fig.cap='Graf kmetijskih kultur v Sloveniji'}
+graf.povprecje.pridelkov.slovenija 
 ```
 
-```{r histogram2, fig.align='center', fig.cap='Histogram živine v Sloveniji'}
- ggplot(aes(x = vrsta.zivine, y = povprecje, group=1), 
-                      data = povprecje.zivine.slovenija) + geom_col() + ggtitle("Povprečje živine")
+```{r graf2, fig.align='center',echo = FALSE, fig.cap='Graf živine v Sloveniji'}
+ graf.povprecje.zivine.slovenija
 ```
 
 
@@ -86,16 +83,12 @@ source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 
 Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
-```{r zemljevid1, fig.align='center', fig.cap='Zemljevid povprečne razširjenosti kmetijskih izdelkov po regijah'}
-tm_shape(merge(zemljevid, najvec.pridelkov.regije, by.x="NAME_1", by.y="regija")) +
-  tm_polygons("povprecje", title="Povprečje") +
-  tm_layout(title="Povprečna razširjenost kmetijskih izdelkov po regijah")
+```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Zemljevid povprečne razširjenosti kmetijskih izdelkov po regijah'}
+zemljevid1
 ```
 
-```{r zemljevid2, fig.align='center', fig.cap='Zemljevid povprečne razširjenosti živinorejskih izdelkov po regijah'}
-tm_shape(merge(zemljevid, najvec.zivine.regije, by.x="NAME_1", by.y="regija" )) +     tm_polygons("povprecje",title="Povprečje") +
-   tm_layout(title="Povprečna razširjenost živinorejskih pridelkov")
-
+```{r zemljevid2,echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Zemljevid povprečne razširjenosti živinorejskih izdelkov po regijah'}
+zemljevid2
 
 ```
 
@@ -106,18 +99,16 @@ tm_shape(merge(zemljevid, najvec.zivine.regije, by.x="NAME_1", by.y="regija" )) 
 ```{r analiza}
 source("analiza/analiza.r", encoding="UTF-8")
 ```
-
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-                                     skupina=factor(skupine)), by="obcina")
-, aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-  ggtitle("Število naselij glede na površino občine") +
-  xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-  guides(color=guide_legend(title="Skupina"),
-         size=guide_legend(title="Prebivalci (* 1000)"))
+Naslednji graf prikazuje napoved kmetijskih pridelkov v prihodnjih letih do leta 2025. Črne pike prikazujejo dejanske količine pridelkov v Sloveniji, rdeče pa napoved količin, na podlagi danih podatkov.
+```{r graf3, echo=FALSE, fig.align='center'}
+graf_napoved1
 ```
+Naslednji graf prikazuje napoved živine v prihodnjih letih do 2025. Črne pike prikazujejo dejanske podatke o živini, rdeče pa napoved.
+```{r graf4, echo=FALSE, fig.align='center'}
+graf_napoved2
+```
+
+
 
 ***
 

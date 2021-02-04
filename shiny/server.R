@@ -27,7 +27,7 @@ shinyServer(function(input, output) {
 
 shinyServer(function(input, output) {
   output$pridelki <- DT::renderDataTable({
-    povprecja.pridelkov.regije 
+    povprecje.regije
   })
   
   output$pokrajine <- renderUI(

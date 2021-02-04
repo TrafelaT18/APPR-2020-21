@@ -44,6 +44,7 @@ pridelki.leta <- povprecje.pridelkov.leta %>% group_by(leto) %>%
 
 
 
+
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
                 na = c('N', 'z')) %>% pivot_longer(-(1:2), names_to = 'leto_stevilo.zivali', values_to = 'kolicina') %>%
   separate(leto_stevilo.zivali, into=c('leto', 'stevilo.zivali'), sep = "(?<=[0-9]) ") %>% select(-stevilo.zivali) %>%
@@ -83,8 +84,13 @@ graf.zivina.leta
 najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>% 
   summarise(povprecje = mean(povprecje, na.rm = TRUE))
 
+#zivina v slo skozi leta
+zivina.leta <- povprecje.zivine.leta %>% group_by(leto) %>% summarise(povprecje=mean(povprecje, na.rm=TRUE))
 
-
+#zdrženi tabeli za povprečje živine in pridelkov po regijah
+zdruzen.zivina <- povprecje.zivine.regije %>% rename(kmetijski.pridelek = vrsta.zivine)
+zdruzen.pridelek <- povprecja.pridelkov.regije %>% rename(kmetijski.pridelek = kmetijska.kultura)
+povprecje.regije <- rbind(zdruzen.pridelek, zdruzen.zivina) 
 
 pridelki <- uvoz.pridelki
 zivina <- uvoz.zivina
