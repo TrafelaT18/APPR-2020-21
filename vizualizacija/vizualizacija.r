@@ -13,7 +13,7 @@ graf.pridelki.regije <- povprecja.5pridelkov.regije %>% ggplot(aes(x = regija, y
 #diagram povprečnega števila pridelkov v slo v 10 letih
 graf.povprecje.pridelkov.slovenija <- ggplot(aes(x = kmetijska.kultura, y = povprecje, group=1), 
                                              data = povprecje.pridelkov.slovenija) + geom_col(fill='darkseagreen3') + coord_flip() + 
-   ggtitle("Povprečje kmetijskih kultur v Sloveniji") + xlab('povprecje v t/ha')
+   ggtitle("Povprečje kmetijskih kultur v Sloveniji") + ylab('povprecje v t/ha')
 
 #graf kako skozi leta spreminjala količina pridelkov v sloveniji
 #!!!!!!!!!!!!!!!!!!!!!!!!
