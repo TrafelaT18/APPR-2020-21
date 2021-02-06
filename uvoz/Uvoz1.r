@@ -7,44 +7,30 @@ uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Wi
 uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
 
 
-#kolko je posamezne kmetijske kulture bilo v posamezni regiji v povprečju skozi leta
-povprecja.pridelkov.regije <- uvoz.pridelki %>% group_by(kmetijska.kultura, regija) %>%
+#povprečje posameznih kmetijskih kultur po ragijaj
+povprecja.pridelkov.regije <- uvoz.pridelki %>%
+  group_by(kmetijska.kultura, regija) %>%
   summarise(povprecje =  mean(kolicina, na.rm = TRUE)) 
-
-#graf za najbolj pogostih po regijah
-graf.pridelki.regije <- povprecja.pridelkov.regije %>% ggplot(aes(x = regija, y = povprecje)) +
-  geom_point() + facet_wrap(~kmetijska.kultura, ncol = 6) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-graf.pridelki.regije
-
+ 
 #kolko je povprečno pridelka v Sloveniji v 10 letih
 povprecje.pridelkov.slovenija <- povprecja.pridelkov.regije %>% group_by(kmetijska.kultura) %>% 
-  summarise(povprecje = mean(povprecje, na.rm = TRUE)) %>% arrange(povprecje)
-#diagram
-graf.povprecje.pridelkov.slovenija <- ggplot(aes(x = kmetijska.kultura, y = povprecje, group=1), 
-         data = povprecje.pridelkov.slovenija) + geom_col() + coord_flip() + 
-  ggtitle("Povprečje kmetijskih kultur") 
-graf.povprecje.pridelkov.slovenija
+  summarise(povprecje = sum(povprecje, na.rm = TRUE)) %>% arrange(povprecje)
+ 
 
 
-#koliko v posemaznem letu povprečno v SLO
-povprecje.pridelkov.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>%
-  summarise(povprecje = mean(kolicina, na.rm = TRUE))
-#graf kako skozi leta spreminjala količina pridelkov v sloveniji
 
-graf.pridelki.leta <- povprecje.pridelkov.leta %>% ggplot(aes(x = leto, y = povprecje)) +
-  geom_step() + facet_wrap(~kmetijska.kultura, ncol = 6) + scale_x_continuous(breaks = seq(2010, 2019, 1)) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
-graf.pridelki.leta
+#¸pridelki po letih v slo skupno
+pridelki.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>%
+  summarise(kolicina = sum(kolicina, na.rm = TRUE))
 
-#kje je največ pridelanih pridelkov skozi leta
+
+#V katerih ragijah kje je povprečno največ pridelanih pridelkov skozi leta
 najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>% 
-  summarise(povprecje = mean(povprecje, na.rm = TRUE))
+  summarise(povprecje = sum(povprecje, na.rm = TRUE))
 
-#pridelki v slo skozi leta
-pridelki.leta <- povprecje.pridelkov.leta %>% group_by(leto) %>% 
-  summarise(povprecje=mean(povprecje, na.rm=TRUE))
-
-
+#povprečje pridelkov v slo v vsakem letu
+skupno.pridelki.leta <- pridelki.leta %>% group_by(leto) %>% 
+  summarise(kolicina=sum(kolicina, na.rm=TRUE))
 
 
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
@@ -56,47 +42,32 @@ uvoz.zivina <- uvoz.zivina[c(1, 3, 2, 4)]
 uvoz.zivina$leto <- as.integer(uvoz.zivina$leto)
 
 
-#kolko je bilo zivine v teh letih v povprecju po regijah
+#Povprečno število živine po regijah po regijah
 povprecje.zivine.regije <- uvoz.zivina %>% group_by(vrsta.zivine, regija) %>% 
   summarise(povprecje = mean(stevilo.zivali, na.rm = TRUE))
 povprecje.zivine.regije$povprecje <- round(povprecje.zivine.regije$povprecje, 2)
-#graf za najbolj pogostih po regijah
-graf.zivina.regije <- povprecje.zivine.regije %>% ggplot(aes(x = regija, y = povprecje)) +
-  geom_point() + facet_wrap(~vrsta.zivine, ncol = 6) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-graf.zivina.regije
 
 
-#kolko je povprečno zivine v Sloveniji v teh letih
+
+#kolko je povprečno posamezne zivine v Sloveniji 
 povprecje.zivine.slovenija <- povprecje.zivine.regije %>% group_by(vrsta.zivine) %>% 
-  summarise(povprecje = mean(povprecje, na.rm = TRUE))
-#diagram
-graf.povprecje.zivine.slovenija <- ggplot(aes(x = vrsta.zivine, y = povprecje, group=1), 
-                      data = povprecje.zivine.slovenija) + geom_col() + ggtitle("Povprečje živine")
-graf.povprecje.zivine.slovenija
+  summarise(povprecje = sum(povprecje, na.rm = TRUE))
 
-#koliko je v posamezne letu zivine povprečno
-povprecje.zivine.leta <- uvoz.zivina %>% group_by(vrsta.zivine, leto) %>% 
-  summarise(povprecje = mean(stevilo.zivali, na.rm = TRUE))
-#graf kako skozi leta spreminjala količina zivine v sloveniji
-graf.zivina.leta <- povprecje.zivine.leta %>% ggplot(aes(x = leto, y = povprecje)) +
-  geom_step() + facet_wrap(~vrsta.zivine, ncol = 6) + scale_x_continuous(breaks = seq(2003, 2016, 2)) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
-graf.zivina.leta
 
-#kje je najvec zivine skozi leta
+#koliko je povprečno vsake živine v vsakem letu 
+zivina.leta <- uvoz.zivina %>% group_by(vrsta.zivine, leto) %>% 
+  summarise(kolicina = sum(stevilo.zivali, na.rm = TRUE))
+
+
+#v kateri regiji je povprečno največ živine
 najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>% 
-  summarise(povprecje = mean(povprecje, na.rm = TRUE))
+  summarise(povprecje = sum(povprecje, na.rm = TRUE))
 
-#zivina v slo skozi leta
-zivina.leta <- povprecje.zivine.leta %>% group_by(leto) %>% summarise(povprecje=mean(povprecje, na.rm=TRUE))
+#povprečno število skupne živine v vsakem letu v Sloveniji
+skupno.zivina.leta <- zivina.leta %>% group_by(leto) %>% summarise(kolicina=sum(kolicina, na.rm=TRUE))
 
-#zdrženi tabeli za povprečje živine in pridelkov po regijah
-zdruzen.zivina <- povprecje.zivine.regije %>% rename(kmetijski.pridelek = vrsta.zivine)
-zdruzen.pridelek <- povprecja.pridelkov.regije %>% rename(kmetijski.pridelek = kmetijska.kultura)
-povprecje.regije <- rbind(zdruzen.pridelek, zdruzen.zivina) 
 
-pridelki <- uvoz.pridelki
-zivina <- uvoz.zivina
+
 
 
 
