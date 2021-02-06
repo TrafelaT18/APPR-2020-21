@@ -2,7 +2,7 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Kmetijstvo in živinoreja"),
+  titlePanel("Kmetijski pridelki in živinoreja"),
   
   tabsetPanel(
     tabPanel("Povprečje kmetijskih pridelkov po regijah",
@@ -10,7 +10,7 @@ shinyUI(fluidPage(
     tabPanel("Povprečno število glav živine po regijah",
              DT::dataTableOutput("zivina")),
     
-    tabPanel("Posamezen izdelek skozi leta",
+    tabPanel("Posamezen kmetijski pridelek skozi leta",
              sidebarPanel(
                selectInput(inputId = "pridelek1",
                            label = "Izberi kmetijski pridelek",
@@ -20,7 +20,7 @@ shinyUI(fluidPage(
                            choices = unique(uvoz.pridelki$regija))
                
              ),
-             mainPanel(plotOutput("pridelki.leta"))
+             mainPanel(plotOutput("skupno.pridelki.leta"))
     ),
     tabPanel("Posamezna vrsta živine skozi leta",
              sidebarPanel(
@@ -32,7 +32,7 @@ shinyUI(fluidPage(
                            choices = unique(uvoz.zivina$regija))
                
              ),
-             mainPanel(plotOutput("zivina.leta"))
+             mainPanel(plotOutput("skupno.zivina.leta"))
     )
   )
 )
