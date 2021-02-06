@@ -5,10 +5,6 @@ shinyUI(fluidPage(
   titlePanel("Kmetijski pridelki in živinoreja"),
   
   tabsetPanel(
-    tabPanel("Povprečje kmetijskih pridelkov po regijah",
-             DT::dataTableOutput("pridelki")),
-    tabPanel("Povprečno število glav živine po regijah",
-             DT::dataTableOutput("zivina")),
     
     tabPanel("Posamezen kmetijski pridelek skozi leta",
              sidebarPanel(
@@ -33,7 +29,11 @@ shinyUI(fluidPage(
                
              ),
              mainPanel(plotOutput("skupno.zivina.leta"))
-    )
+    ),
+    tabPanel("Povprečje kmetijskih pridelkov po regijah",
+             DT::dataTableOutput("pridelki")),
+    tabPanel("Povprečno število glav živine po regijah",
+             DT::dataTableOutput("zivina"))
   )
 )
 )

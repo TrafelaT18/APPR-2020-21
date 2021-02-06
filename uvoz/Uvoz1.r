@@ -1,9 +1,8 @@
-
 uvoz.pridelki <- read_csv("podatki/pridelek.csv", locale = locale(encoding = 'Windows-1250'),na = '-') %>% 
-                            pivot_longer(-1, names_to = 'leto.regija', 
-                            values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
-                              sep="(?<=[0-9]) ") %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE") %>% 
-                          arrange(kmetijska.kultura) %>% arrange(leto) 
+  pivot_longer(-1, names_to = 'leto.regija', 
+               values_to = 'kolicina') %>%  separate('leto.regija', into = c('leto', 'regija'), 
+                                                     sep="(?<=[0-9]) ") %>% rename(kmetijska.kultura = "KMETIJSKE KULTURE") %>% 
+  arrange(kmetijska.kultura) %>% arrange(leto) 
 uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
 
 
@@ -11,20 +10,20 @@ uvoz.pridelki$leto <- as.integer(uvoz.pridelki$leto)
 povprecja.pridelkov.regije <- uvoz.pridelki %>%
   group_by(kmetijska.kultura, regija) %>%
   summarise(povprecje =  mean(kolicina, na.rm = TRUE)) 
- 
+
 #kolko je povprečno pridelka v Sloveniji v 10 letih
 povprecje.pridelkov.slovenija <- povprecja.pridelkov.regije %>% group_by(kmetijska.kultura) %>% 
   summarise(povprecje = sum(povprecje, na.rm = TRUE)) %>% arrange(povprecje)
- 
 
 
 
-#¸pridelki po letih v slo skupno
+
+#pridelki po letih v slo skupno
 pridelki.leta <- uvoz.pridelki %>% group_by(kmetijska.kultura, leto) %>%
   summarise(kolicina = sum(kolicina, na.rm = TRUE))
 
 
-#V katerih ragijah kje je povprečno največ pridelanih pridelkov skozi leta
+#V katerih ragijah je povprečno največ skupno pridelanih pridelkov 
 najvec.pridelkov.regije <- povprecja.pridelkov.regije %>% group_by(regija) %>% 
   summarise(povprecje = sum(povprecje, na.rm = TRUE))
 
@@ -34,10 +33,10 @@ skupno.pridelki.leta <- pridelki.leta %>% group_by(leto) %>%
 
 
 uvoz.zivina <- read_csv("podatki/zivina.csv", locale = locale(encoding = "Windows-1250"), 
-                na = c('N', 'z')) %>% pivot_longer(-(1:2), names_to = 'leto_stevilo.zivali', values_to = 'kolicina') %>%
+                        na = c('N', 'z')) %>% pivot_longer(-(1:2), names_to = 'leto_stevilo.zivali', values_to = 'kolicina') %>%
   separate(leto_stevilo.zivali, into=c('leto', 'stevilo.zivali'), sep = "(?<=[0-9]) ") %>% select(-stevilo.zivali) %>%
-    rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',stevilo.zivali = 'kolicina') %>%
-   filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA') %>% arrange(vrsta.zivine) %>% arrange(leto)
+  rename(vrsta.zivine = 'VRSTA ŽIVINE', regija = 'STATISTIČNA REGIJA',stevilo.zivali = 'kolicina') %>%
+  filter(vrsta.zivine != 'Število glav velike živine [GVŽ]', regija != 'SLOVENIJA') %>% arrange(vrsta.zivine) %>% arrange(leto)
 uvoz.zivina <- uvoz.zivina[c(1, 3, 2, 4)]
 uvoz.zivina$leto <- as.integer(uvoz.zivina$leto)
 
@@ -65,10 +64,6 @@ najvec.zivine.regije <- povprecje.zivine.regije %>% group_by(regija) %>%
 
 #povprečno število skupne živine v vsakem letu v Sloveniji
 skupno.zivina.leta <- zivina.leta %>% group_by(leto) %>% summarise(kolicina=sum(kolicina, na.rm=TRUE))
-
-
-
-
 
 
 

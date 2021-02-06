@@ -24,7 +24,7 @@ source("lib/rstudio.r", encoding="UTF-8")
 
 # Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji
 
-Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji. Prikazala bom, kako so se količine kmetijskih pridelkov spreminjale v časovnem obdobju od leta 2010 do 2019, količino posameznega pridelka v Sloveniji ter količina kmetijskih pridelkov po regijah. Prav tako bom prikazala število in vrsto živine po regijah in letih 2003, 2005, 2007, 2010, 2013, 2016. Podatke bom iskala na Statističnem uradu Republike Slovenije.
+Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji. Prikazala bom, kako so se količine kmetijskih pridelkov spreminjale v časovnem obdobju od leta 2010 do 2019, količino posameznega pridelka v Sloveniji ter količina kmetijskih pridelkov po regijah. Prav tako bom prikazala število in vrsto živine po regijah in letih 2003, 2005, 2007, 2010, 2013, 2016. Podatke bom iskala na Statističnem uradu Republike Slovenija.
 
 ![](slike/kmetijstvo_zivinoreja.jpg)
 
@@ -48,8 +48,8 @@ Podatke imam v dveh razpredelnicah v obliki *tidy data*.
           (tip :realno število)
   
 2. `vrsta.zivine` - podatki o živini
-  - `leto` - spremenljivka: leta  2003, 2005, 2007, 2009,
-        2011,2013,2015,2017,2019  (tip podatkov: celo število)
+  - `leto` - spremenljivka: leta  2003, 2005, 2007, 2010,
+        2013,2016  (tip podatkov: celo število)
   - `regija` - spremenljivka: slovenska regija (tip: niz)
   - `stevilo` - meritev: stevilo  glav živine v danem letu in
         dani regiji   (tip: realno število)
@@ -64,7 +64,7 @@ V 2. razpredelnici sem podala znak, ki označuje manjkajoče podatke ('N', 'Z'),
 ***
 
 ## Analiza in vizualizacija podatkov
-Pred analizo podatkov, sem si zastavila naslednja vprašanja: \
+Pred analizo podatkov sem si zastavila naslednja vprašanja: \
 - Katera kmetijska kultura in katera vrsta živine je bila  najbolj pogosta v Sloveniji \
 - Kako je razvito kmetovanje s kmetijskimi pridelki in kako živinoreja po regijah \
 - Kako se je spreminjala količina določenega kmetijskega pridelka in število določene vrste živine po letih v Sloveniji \
@@ -77,14 +77,14 @@ source("vizualizacija/vizualizacija.r", encoding="UTF-8")
 Spodnja grafa prikazujeta povprečje kmetijskih kultur (v t/ha) in živine (v številu glav), torej prikaže, katera kultura in katera vrsta živine je bila v povprečju najpogostejša v Sloveniji skozi vsa ta leta. 
 
 
-```{r graf1, fig.align='center',echo = FALSE, fig.cap='Graf kmetijskih kultur v Sloveniji'}
+```{r graf1, fig.align='center', echo = FALSE}
 graf.povprecje.pridelkov.slovenija 
 ```
 
-V tem grafu vidimo, da so v letih od 2010 do 2019 bile v Sloveniji najpogostejše kmetijske kulture silažna koruza, belo zelje, jabolka, krompir, jabolka v intenzivnih sadovnjakih, breskve in nektarine, itd. 
+V tem grafu vidimo, da so v letih od 2010 do 2019 bile v Sloveniji najpogostejše kmetijske kulture silažna koruza, belo zelje, krompir, jabolka v intenzivnih sadovnjakih, breskve in nektarine, itd. 
 \
 \
-```{r graf2, fig.align='center',echo = FALSE, fig.cap='Graf živine v Sloveniji'}
+```{r graf2, fig.align='center', echo = FALSE}
  graf.povprecje.zivine.slovenija
 ```
 
@@ -95,7 +95,7 @@ Ta graf nam pa prikaže, katera vrsta živine je bila najpogostejša v preučeva
 Spodnja zemljevida prikazujeta povprečno razvitost kmetovanja s kmetijskimi pridelki za vsako regijo in povprečno razvitost živinoreje za vsako regijo. 
 
 
-```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Zemljevid povprečne razširjenosti kmetijskih pridelkov po regijah'}
+```{r zemljevid1, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 zemljevid1
 ```
 
@@ -104,37 +104,25 @@ Vidimo, da je na gorenjskem povprečno največja pridelava kmetijskih pridelkov,
 Tudi na osrednjeslovenskem je pridelava kmetijskih pridelkov močno razvita, prav tako sta najbolj zelje in krompir.
 Na obalno-kraškem je pa takšna vrsta kmetijstva zelo slabo razvita zaradi nerodovitne zemlje. Največ pa pridelajo jabolk in silažne koruze.
 
-```{r graf3, fig.align='center',echo = FALSE, fig.cap='Graf pridelkov po regijah'}
+```{r graf3, fig.align='center', echo = FALSE}
  graf.pridelki.regije
 ```
 \
 
-```{r zemljevid2,echo=FALSE, message=FALSE, warning=FALSE,fig.align='center', fig.cap='Zemljevid povprečne razširjenosti živinoreje po regijah'}
+```{r zemljevid2,echo=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
 zemljevid2
 
 ```
-V tem zemljevidu pa vidimo razvitost živinoreje po Sloveniji. Najbolj izstopa Podravska, kjer je najbolj razvita perutnina, in sicer ima kar 1,819,230.67 glav perutnine, kar nam pokaže spodnji graf.
+V tem zemljevidu pa vidimo razvitost živinoreje po Sloveniji. Najbolj izstopa Podravska, kjer je najbolj razvita perutnina, in sicer ima povprečno kar 1,819,230.67 glav perutnine, kar nam pokaže spodnji graf.
 
-```{r graf4, fig.align='center',echo = FALSE, fig.cap='Graf živine po regijah'}
+```{r graf4, fig.align='center', echo = FALSE}
  graf.zivina.regije
 ```
 
-Zanimalo me je še, kje so posamezni kmetijski pridelki povprečno najbolj razviti, oziroma kakšne so razlike v količinah kmetijskih pridelkov in vrste živine po regijah. To je prikazano v zgornjih dveh grafih.Prikazala sem za najpogostejše pridelke. Enako me je zanimalo tudi za vsako vrsto živine.
+Zanimalo me je še, kje so posamezni kmetijski pridelki povprečno najbolj razviti, oziroma kakšne so razlike v količinah kmetijskih pridelkov in vrste živine po regijah. To je prikazano v zgornjih dveh grafih. Prikazala sem za najpogostejše pridelke. Enako me je zanimalo tudi za vsako vrsto živine.
 
 \
 \
-
-V spodnjih grafih, pa je še prikazano, kako se količina teh kmetijskih pridelkov spreminja skozi leta in tako tudi za vrsto živine.
-?? Ali pustim grafa, čeprav imam v shiny boljšo različico tega?
-```{r graf5, fig.align='center',echo = FALSE, fig.cap='Graf kmetijskih pridelkov po letih'}
- graf.pridelki.leta
-```
-
-\
-\
-```{r graf6, fig.align='center',echo = FALSE, fig.cap='Graf živine po letih'}
- graf.zivina.leta
-```
 
 
 
@@ -147,20 +135,21 @@ source("analiza/analiza.r", encoding="UTF-8")
 ```
 V tej fazi me je zanimalo, kakšna je predvidena količina kmetijskih pridelkov in število živine v prihodnosti. Naredila sem napoved do leta 2025.
 v naslednjem grafu črne pike prikazujejo dejanske količine pridelkov v Sloveniji, rdeče pa napoved količin, na podlagi danih podatkov.
-```{r graf7, echo=FALSE, fig.align='center', fig.cap= 'Graf pričakovanih količin pridelkov v prihodnosti'}
+```{r graf7, echo=FALSE, fig.align='center'}
 graf_napoved1
 ```
 Naslednji graf prikazuje napoved živine v prihodnjih letih do 2025. Črne pike prav tako prikazujejo dejanske podatke o živini, rdeče pa napoved.
-```{r graf8, echo=FALSE, fig.align='center', fig.cap='Graf pričakovanega števila živali v prihodnosti'}
+```{r graf8, echo=FALSE, fig.align='center'}
 graf_napoved2
 ```
 
 
 
 ***
-Naredila sem tudi interaktivni tabeli povprečnega števila kmetijskih pridelkov in živine po regijah in interaktivna grafa pridelkov in živine po letih.
-V tej tabeli so prikazani podobni podatki, kot v grafu 'Graf pridelkov po regijah' in 'Graf živine po regijah' , le da je tukaj prikazano za vse kmetijske kulture in ne le najbolj pogoste in tukaj so podani natančni podatki, kar pa iz grafov ni razvidno. 
-Grafa pa imata podobne podatke kot 'Graf kmetijskih pridelkov po letih' in 'Graf živine po letih', vendar tako kot prej, so v tem grafu podatki za vse kmetijske kulture. Poleg tega, so ti grafi bolj pregledni in lažje razbereš njihovo količino.
+V Spodnjih grafih je pa prikazano spreminjanje količine kmetijskih pridelkov ter število živali po letih v posamezni regiji. 
+Naredila sem tudi interaktivni tabeli povprečnega števila kmetijskih pridelkov in živine po regijah, v kateri  
+so prikazani podobni podatki, kot v grafu 'Graf pridelkov po regijah' in 'Graf živine po regijah' , le da je tukaj prikazano za vse kmetijske kulture in ne le najbolj pogoste. Prav tako so podani natančni podatki, kar pa iz grafov ni razvidno. 
+
 ```{r shiny}
 shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
