@@ -5,7 +5,7 @@
 povprecja.5pridelkov.regije <- povprecja.pridelkov.regije[c(1:24, 85:96, 121:132, 205:216),]
 
 graf.pridelki.regije <- povprecja.5pridelkov.regije %>% ggplot(aes(x = regija, y = povprecje, color=regija)) +
-   geom_point(size=2) + facet_wrap(~kmetijska.kultura, ncol = 5, labeller = label_wrap_gen(width=30)) + theme(axis.text.x = element_text(size = 7, angle = 90, vjust = 0.5, hjust=1)) +
+   geom_point(size=2) + facet_wrap(~kmetijska.kultura, ncol = 5, labeller = label_wrap_gen(width=20)) + theme(axis.text.x = element_text(size = 6, angle = 90, vjust = 0.5, hjust=1)) +
    ggtitle('Povprečje posameznih kmetijskih pridelkov po regijah' ) + ylab('Povprečje v t/ha') + xlab('Regija')
 
 
