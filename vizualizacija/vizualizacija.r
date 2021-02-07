@@ -2,7 +2,7 @@
 
 #graf za najbolj pogostih po regijah !!!!!!!!!!!!!!!!!!!!!
 
-povprecja.5pridelkov.regije <- povprecja.pridelkov.regije[c(1:24, 85:96, 121:132, 205:216),]
+povprecja.5pridelkov.regije <- povprecja.pridelkov.regije[grep('(Jabolka)|(Belo zelje)|(Breskve)|(Silažna koruza)|(Krompir)',povprecja.pridelkov.regije$kmetijska.kultura),]
 
 graf.pridelki.regije <- povprecja.5pridelkov.regije %>% ggplot(aes(x = regija, y = povprecje, color=regija)) +
    geom_point(size=2) + facet_wrap(~kmetijska.kultura, ncol = 5, labeller = label_wrap_gen(width=20)) + theme(axis.text.x = element_text(size = 6, angle = 90, vjust = 0.5, hjust=1)) +
@@ -19,9 +19,17 @@ graf.povprecje.pridelkov.slovenija <- ggplot(aes(x = kmetijska.kultura, y = povp
 
 library(scales)
 #graf za najbolj pogostih po regijah
-graf.zivina.regije <- povprecje.zivine.regije %>% ggplot(aes(x = regija, y = povprecje, color=regija)) + 
-   geom_point(size = 1.5) + facet_wrap(~vrsta.zivine, ncol = 3) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+vrstice1 <- grep('(Konji)|(Koze)|(Ovce)', povprecje.zivine.regije$vrsta.zivine)                                                    
+povprecje.zivine.regije1 <- povprecje.zivine.regije[vrstice1,]
+graf.zivina.regije1 <- povprecje.zivine.regije1 %>% ggplot(aes(x = regija, y = povprecje, color=regija)) + 
+   geom_point(size = 2) + facet_wrap(~vrsta.zivine, ncol = 3) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
    scale_y_continuous(labels = scales::comma) + ggtitle('Povprečno število živine po regijah') + ylab('Povprečje') + xlab('Regija')
+vrstice2 <- grep('(Govedo)|(Perutnina)|(Prašiči)', povprecje.zivine.regije$vrsta.zivine)
+povprecje.zivine.regije2 <- povprecje.zivine.regije[vrstice2,]
+graf.zivina.regije2 <- povprecje.zivine.regije2 %>% ggplot(aes(x = regija, y = povprecje, color=regija)) + 
+   geom_point(size = 2) + facet_wrap(~vrsta.zivine, ncol = 3) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+   scale_y_continuous(labels = scales::comma) + ggtitle('Povprečno število živine po regijah') + ylab('Povprečje') + xlab('Regija')
+
 
 #diagram
 graf.povprecje.zivine.slovenija <- ggplot(aes(x = vrsta.zivine, y = povprecje, group=1), 

@@ -113,10 +113,12 @@ Na obalno-kraškem je pa takšna vrsta kmetijstva zelo slabo razvita zaradi nero
 zemljevid2
 
 ```
-V tem zemljevidu pa vidimo razvitost živinoreje po Sloveniji. Najbolj izstopa Podravska, kjer je najbolj razvita perutnina, in sicer ima povprečno kar 1,819,230.67 glav perutnine, kar nam pokaže spodnji graf.
+V tem zemljevidu pa vidimo razvitost živinoreje po Sloveniji. Najbolj izstopa Podravska, kjer je najbolj razvita perutnina, in sicer ima povprečno kar 1,819,230.67 glav perutnine, kar nam tudi pokaže spodnji graf, v katerem vidimo, da perutnina najbolj izstopa. Grafa sem razdelila v 2 dela, ker je število konjev, koz in ovc močno manjše in je tako bolj pregledno.
 
 ```{r graf4, fig.align='center', echo = FALSE}
- graf.zivina.regije
+graf.zivina.regije2
+graf.zivina.regije1
+
 ```
 
 Zanimalo me je še, kje so posamezni kmetijski pridelki povprečno najbolj razviti, oziroma kakšne so razlike v količinah kmetijskih pridelkov in vrste živine po regijah. To je prikazano v zgornjih dveh grafih. Prikazala sem za najpogostejše pridelke. Enako me je zanimalo tudi za vsako vrsto živine.
