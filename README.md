@@ -8,8 +8,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2020/21
 ## Tematika
 Izbrala sem si temo z naslovom Količine pridelanih kmetijskih pridelkov in število živine v Sloveniji. Prikazala bom, kako so se količine kmetijskih pridelkov spreminjale v časovnem obdobju od leta 2010 do 2019, količino posameznega pridelka v Sloveniji ter količina kmetijskih pridelkov po regijah. Prav tako bom prikazala število in vrsto živine po regijah. Podatke bom iskala na Statističnem uradu Republike Slovenije.
 
-
-https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1573804S.px/table/tableViewLayout2/
+https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1502410S.px
 https://pxweb.stat.si/SiStatData/pxweb/sl/Data/-/1573804S.px/table/tableViewLayout2/
 
 Ti podatki so na volju v csv obliki.
@@ -18,11 +17,11 @@ Podatke bom imela v dveh razpredelnicah v obliki *tidy data*
 1. `kmetijska.kultura` - podatki o kmetijskih kulturah
   - `leto` - spremenljivka: leto od 2010 do 2019
   - `regija` - spremenljivka: slovenska regija
-  - `kolicina` - meritev: povprečna količina pridelanega             pridelka v t/ha v ustreznem letu in ustrezni regiji
+  - `kolicina` - meritev: povprečna količina pridelanega pridelka v t/ha v ustreznem letu in ustrezni regiji
   
 2. `vrsta.zivine` - podatki o živini
-  - `leto` - spremenljivka: leta  2003, 2005, 2007, 2009,
-        2011,2013,2015,2017,2019
+  - `leto` - spremenljivka: leta  2003, 2005, 2007, 2010,
+        2013,2016
   - `regija` - spremenljivka: slovenska regija
   - `stevilo` - meritev: stevilo  glav živine v danem letu in
         dani regiji
